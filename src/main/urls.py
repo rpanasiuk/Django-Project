@@ -18,8 +18,10 @@ from django.urls import path
 
 from django.views.generic import TemplateView
 
+from products.views import bootstrap
+
 urlpatterns = [
     path('admin/', admin.site.urls),
-    path('bootstrap/', TemplateView.as_view(template_name='bootstrap/bootstrap_example.html')),
-    path('django/', TemplateView.as_view(template_name='bootstrap/django.html')),
+    # path('bootstrap/', TemplateView.as_view(template_name='bootstrap/bootstrap_example.html')),
+    path('bootstrap/', bootstrap, name='boot')
 ]
