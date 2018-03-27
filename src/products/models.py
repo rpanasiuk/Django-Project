@@ -10,7 +10,7 @@ class Product(models.Model):
 										blank=False, null=True, on_delete=models.CASCADE)
 	timestamp 		= models.DateTimeField(auto_now_add=True)
 	updated 		= models.DateTimeField(auto_now=True)
-	slug 			= models.SlugField(blank=True)
+	slug 			= models.SlugField(blank=True) 
 
 	def __str__(self):
 		return self.title
@@ -18,7 +18,6 @@ class Product(models.Model):
 class Category(models.Model):
 	name 	 = models.CharField(max_length=120)
 	
-
 	class Meta:
 		verbose_name_plural = 'categories'
 		ordering = ['name']
@@ -30,6 +29,9 @@ class ProductType(models.Model):
 	name 	    = models.CharField(max_length=120)
 	sex			= models.CharField(max_length=120)
 	category 	= models.ManyToManyField('Category', blank=True)
+
+	class Meta:
+		unique_together = (('name', 'sex'),)
 
 	def __str__(self):		
 		cat_path = [self.name]
