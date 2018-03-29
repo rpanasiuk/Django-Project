@@ -1,0 +1,117 @@
+<footer class="page-footer font-small pt-0 mt-4">
+	<div class="container bg-info">
+		<style type="text/css">
+			.second-footer-row p {
+				margin-bottom: 0.5rem;						
+			}
+			.second-footer-row a {
+				color: #212529;
+			}
+		</style>
+
+		<div class="first-footer-row">
+			<div class="row py-4 d-flex align-items-center" style="background-color: #6351ce;">
+				<div class="col-md-6 col-lg-5 text-center text-md-left mb-4 mb-md-0">
+					<h6 class="mb-0 white-text">Get connected with us on social networks!</h6>
+				</div>
+				<div class="col-md-6 col-lg-7 text-center text-md-right">
+                    <a class="fb-ic ml-0">
+						<i class="fa fa-facebook white-text mr-lg-4"></i></a>
+					<a class="gplus-ic">
+						<i class="fa fa-google-plus white-text mr-lg-4"> </i></a>
+					<a class="li-ic">
+						<i class="fa fa-linkedin white-text mr-lg-4"> </i></a>
+					<a class="ins-ic">
+						<i class="fa fa-instagram white-text mr-lg-4"> </i></a>
+					<a class="tw-ic">
+						<i class="fa fa-twitter white-text mr-lg-4"> </i></a>						
+				</div>
+			</div>
+		</div>
+
+		<div class="second-footer-row">
+			<div class="container mt-4 mb-4 text-center text-md-left">
+				<div class="row mt-3">
+					<!-- Newsletter column -->
+					<div class="col-md-3 col-lg-4 mb-3">
+						<h6 class="text-uppercase font-weight-bold mb-0">
+							<strong>Newsletter</strong>
+						</h6>
+						<hr class="deep-purple accent-2 mb-2 mt-0 d-inline-block mx-auto" style="width: 60px;">
+						
+						<div class="block-content">
+							<form action="/bootstrap/" method="POST">{% csrf_token %}
+								<div class="form-group">
+									<div class="newsletter-text mb-3">
+										Sign up for featuring exclusive offers, latest product info, news about upcoming events, and more. See our <a href="#"><strong>Privacy Policy</strong></a> for details.
+									</div>
+									<input class='mb-2' type="text" name="email" id='newsletter-input' size="18" placeholder="Your email.."/>
+									<button class='btn btn-danger button-small' type="submit" name="submit-newsletter">Sign up</button>
+								</div>
+							</form>
+						</div>						
+					</div>
+					<!-- Newsletter column -->
+
+					<!-- Products column -->
+					<div class="col-md-2 col-lg-2 col-xl-2 mx-auto mb-3">
+						<h6 class="text-uppercase font-weight-bold mb-0">
+							<strong>Products</strong>
+						</h6>
+						<hr class="deep-purple accent-2 mb-2 mt-0 d-inline-block mx-auto" style="width: 60px;">
+						<p>
+							<a href="#">Home</a></p>
+						<p>
+							<a href="#">About</a></p>
+						<p>
+							<a href="#">Specials</a></p>
+						<p>
+							<a href="#">Contact</a></p>		
+					</div>
+					<!-- Products column -->
+
+					<!-- Links column -->
+					<div class="col-md-3 col-lg-2 col-xl-2 mx-auto mb-3">
+						<h6 class="text-uppercase font-weight-bold mb-0">
+							<strong>Links</strong></h6>
+						<hr class="deep-purple accent-2 mb-2 mt-0 d-inline-block mx-auto" style="width: 60px;">
+						<p>
+							<a href="#">FAQ</a></p>
+						<p>
+							<a href="#">About</a></p>
+						<p>
+							<a href="#">Shipping</a></p>
+						<p>
+							<a href="#">Payments</a></p>		
+					</div>
+					<!-- Links column -->
+
+					<!-- Contact column -->
+					<div class="col-md-4 col-lg-3 col-xl-3 mb-3 px-0">
+						<h6 class="text-uppercase font-weight-bold mb-0">
+							<strong>Contact</strong></h6>
+						<hr class="deep-purple accent-2 mb-2 mt-0 d-inline-block mx-auto" style="width: 60px;">
+						<p>
+							<i class="fa fa-home mr-3"></i>Chmielna Street, Warsaw, Poland</p>
+						<p>
+							<i class="fa fa-envelope mr-3"></i>panasiukraf@gmail.com</p>
+						<p>
+							<i class="fa fa-phone mr-3"></i>+ 48 600 100 200</p>
+						<p>
+							<i class="fa fa-print mr-3"></i>+ 48 600 100 28</p>		
+					</div>
+					<!-- Contact column -->													
+				</div>
+			</div>
+		</div>
+
+		<div class="row py-3 d-flex align-items-center" style="background-color: #6351ce;">
+			<div class="col-md-8 col-lg-8 text-md-left text-lg-left text-center">
+				<h6>Copyright © Project.pl Wszelkie prawa zastrzeżone.</h6>
+			</div>
+			<div class="col-md-4 col-lg-4 text-md-right text-lg-right text-center">
+				<h6>Created by webcreator.com</h6>
+			</div>
+		</div>				
+	</div>
+</footer>

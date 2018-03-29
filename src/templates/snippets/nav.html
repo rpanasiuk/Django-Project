@@ -1,0 +1,107 @@
+<nav class="navbar navbar-expand-md navbar-dark bg-dark">
+	<div class="container">
+		<a class="navbar-brand" href="#">
+			<img src="http://www.getbootstrap.com/assets/brand/bootstrap-solid.svg" width="30" 
+				 height="30" class="d-inline-block align-top" alt="">
+			Project
+		</a>
+
+		<button class="navbar-toggler" type="button" data-toggle='collapse' 
+				data-target='#navbarCollapseLinks' aria-expanded='false' 
+				aria-label='Toogle Navigation'>
+			<span class="navbar-toggler-icon"></span>
+		</button>
+
+		<div class="collapse navbar-collapse" id="navbarCollapseLinks">
+			<ul class="navbar-nav col-12">
+				<!-- Dropdown -->
+				<li class="nav-item dropdown">
+					<a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button"
+					   data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+						Male
+					</a>
+					<div class="dropdown-menu" aria-labelledby="navbarDropdown">
+					{% if male_categories %}
+						{% for category in male_categories %}
+							<a class="dropdown-item" href="#">{{ category }}</a>
+						{% endfor %}
+					{% endif %}
+						<div class="dropdown-divider"></div>
+						<a class="dropdown-item" href="#">All</a>
+					</div>							
+				</li>
+				<!-- END Dropdown -->
+				<li class="nav-item dropdown">
+					<a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button"
+					   data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+						Female
+					</a>
+					<div class="dropdown-menu" aria-labelledby="navbarDropdown">
+					{% if female_categories %}
+						{% for category in female_categories %}
+							<a class="dropdown-item" href="#">{{ category }}</a>
+						{% endfor %}
+					{% endif %}
+						<div class="dropdown-divider"></div>
+						<a class="dropdown-item" href="#">All</a>
+					</div>							
+				</li>
+				<li class="nav-item">
+					<a class="nav-link" href="#">New</a>
+				</li>
+				<li class="nav-item">
+					<a class="nav-link" href="#">Sale</a>
+				</li>
+
+				<div class="navbar navbar-light bg-dark">
+					<form class="form-inline">
+						<input id="q" class="form-control form-control-sm mr-sm-2" type="search" placeholder="Search" aria-label="Search">
+						<button class="btn btn-sm btn-outline-success my-sm-0" type="submit">Search</button>
+					</form>
+				</div>								
+
+				<ul class="navbar-nav ml-auto">
+					<li class="nav-item ml-0">
+						<a class="nav-link" href="#">
+							<i class="fa fa-star" style="font-size: 18px;"></i>
+							Favorites
+						</a>
+					</li>
+					<li class="nav-item ml-0">
+						<a class="nav-link" href="#">
+							<i class="fa fa-shopping-cart" style="font-size: 18px;"></i>
+							Shopping cart
+						</a>
+					</li>
+
+					<li class="nav-item dropdown ml-0">
+						<a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+							<i class="fa fa-user-circle-o" style="font-size: 18px;"></i>
+							Account
+						</a>
+						<div class="dropdown-menu">
+							<form class="px-4 py-3">
+								<div class="form-group">
+									<label for="exampleDropdownFormEmail1">Email address</label>
+									<input type="email" class="form-control" id="exampleDropdownFormEmail1" placeholder="email@example.com">
+								</div>
+								<div class="form-group">
+									<label for="exampleDropdownFormPassword1">Password</label>
+									<input type="password" class="form-control" id="exampleDropdownFormPassword1" placeholder="Password">
+								</div>
+								<div class="form-check">
+									<input type="checkbox" class="form-check-input" id="dropdownCheck">
+									<label class="form-check-label" for="dropdownCheck">Remember me</label>
+								</div>
+								<button type="submit" class="btn btn-primary">Sign in</button>
+							</form>
+							<div class="dropdown-divider"></div>
+							<a class="dropdown-item" href="#">New around here? Sign up</a>
+							<a class="dropdown-item" href="#">Forgot password?</a>
+						</div>
+					</ul>
+				</li>															
+			</ul>
+		</div>
+	</div>
+</nav>

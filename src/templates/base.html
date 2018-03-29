@@ -1,0 +1,17 @@
+<!DOCTYPE html>
+<html>
+	<head>
+	{% include 'snippets/css.html' %}
+		<title>{% block head_text %}{{ block.super }} || Site{% endblock head_text %}</title>
+	</head>
+
+	<body>
+	{% include 'snippets/nav.html' %}
+
+	{% block content %}
+	{% endblock content %}
+
+	{% include 'snippets/footer.html' %}
+	{% include 'snippets/js.html' %}
+	</body>
+</html>
