@@ -18,10 +18,15 @@ from django.urls import path
 
 from django.views.generic import TemplateView
 
-from products.views import bootstrap
+from products.views import (
+    ProductTypeNavListView, 
+    ProductSearchListView.
+)
 
 urlpatterns = [
     path('admin/', admin.site.urls),
+    path('', TemplateView.as_view(template_name='home.html')),
     # path('bootstrap/', TemplateView.as_view(template_name='bootstrap/bootstrap_example.html')),
-    path('bootstrap/', bootstrap, name='boot')
+    path('bootstrap/', ProductTypeNavListView.as_view(), name='boot'),
+    path(r'^(P?<query>[-\w]+)/$', ProductSearchListView.as_view(), name='search')
 ]

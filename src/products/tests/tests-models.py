@@ -3,20 +3,7 @@ from django.db.utils import IntegrityError
 
 from products.models import Category, Product, ProductType
 
-class CategoryModelTest(TestCase):
-
-	@classmethod
-	def setUpTestData(cls):
-		Category.objects.create(name='Air Max')
-		Category.objects.create(name='Jordan')
-
-	def test_name_getting(self):
-		category = Category.objects.first().name
-		self.assertEquals(category, 'Air Max')
-
-class ProductTypeModelTest(TestCase):
-
-	def setUp(self):
+def model_setup():
 		prod_type_female = ProductType.objects.create(name='Footwear', sex='Female')
 		prod_type_male = ProductType.objects.create(name='Footwear', sex='Male')
 		prod_type_junior = ProductType.objects.create(name='Footwear', sex='Junior')
@@ -111,37 +98,85 @@ class ProductTypeModelTest(TestCase):
 		product_6.category.set(cat6)
 		product_7.category.set(cat7)
 		product_8.category.add(cat1)
-		
-	def test_display_of___str___function(self):
-		obj = ProductType.objects.filter(name='Footwear', sex='Female')
-		self.assertQuerysetEqual(obj, ['<ProductType: Footwear -> Female>'], ordered=False)
 
-	def test_name_max_length(self):
-		name_len_test = ProductType.objects.get(id=1)
-		max_length = name_len_test._meta.get_field('name').max_length
-		self.assertEquals(max_length, 120)
+class ProductModelTest(TestCase):
+
+	def setUp(self):
+		model_setup()
+
+	def test_get_all_products_from_footwear_product_class(self):
+		prod = Product.objects.filter(product_class__name='Footwear')
+		self.assertQuerysetEqual(prod, 
+			['<Product: Reebok Classic Leather>', 
+			 '<Product: Air Jordan 11 Retro "Space Jam">',
+			 '<Product: Vans x Rains UA Old Skool Lite>',
+			 '<Product: Asics x asphaldgold GEL-DS Trainer OG>',
+			 '<Product: Nike Air Max 270>', 
+			 '<Product: adidas NMD R2>',
+			 '<Product: Nike Air Max 98>',
+			 '<Product: adidas ZX750>'], ordered=False
+		)
+
+class CategoryModelTest(TestCase):
+
+	@classmethod
+	def setUpTestData(cls):
+		Category.objects.create(name='Air Max')
+		Category.objects.create(name='Jordan')
+
+	def test_name_getting(self):
+		category = Category.objects.first().name
+		self.assertEquals(category, 'Air Max')
+
+
+
+class ProductTypeModelTest(TestCase):
+
+	def setUp(self):
+		model_setup()
+	
+	def test_display_of___str___function(self):
+		prod_type = ProductType.objects.filter(name='Footwear', sex='Female')
+		self.assertQuerysetEqual(prod_type, 
+			['<ProductType: Footwear -> Female>'], ordered=False)
 
 	def test_unique_together_for_name_and_sex(self):
 		with self.assertRaises(IntegrityError):
 			ProductType.objects.create(name='Footwear', sex='Female')
 
 	def test_get_all_female_categories(self):
-		gender = ProductType.objects.get(name='Footwear', sex='Female')
-		categories = gender.category.all()
+		prod_type = ProductType.objects.get(name='Footwear', sex='Female')
+		categories = prod_type.category.all()
 		self.assertQuerysetEqual(categories, 
 			['<Category: Air Max>', '<Category: Jordan>'], ordered=False)
 
-	def test_get_all_male_categories(self):
-		gender = ProductType.objects.get(name='Footwear', sex='Male')
-		categories = gender.category.all()
-		self.assertQuerysetEqual(categories, 
-			['<Category: Runners>', '<Category: Jordan>'], ordered=False)		
+	def test_get_all_male_products(self):
+		prod_type = ProductType.objects.get(name='Footwear', sex='Male')
+		products = prod_type.product_class.all()
+		self.assertQuerysetEqual(products, 
+			['<Product: Reebok Classic Leather>', 
+			 '<Product: Vans x Rains UA Old Skool Lite>', 
+			 '<Product: Asics x asphaldgold GEL-DS Trainer OG>'], ordered=False
+		)		
 
-	def test_get_all_junior_categories(self):
-		gender = ProductType.objects.get(name='Footwear', sex='Junior')
-		categories = gender.category.all()
-		self.assertQuerysetEqual(categories, 
-			['<Category: Runners>'], ordered=False)
+	def test_get_all_male_products_with_respect_to_categories(self):
+		prod_type = ProductType.objects.get(name='Footwear', sex='Male')
+		products = prod_type.product_class.filter(category__in=prod_type.category.all())
+		self.assertQuerysetEqual(products, 
+			['<Product: Reebok Classic Leather>', 
+			 '<Product: Vans x Rains UA Old Skool Lite>',
+			 '<Product: Vans x Rains UA Old Skool Lite>',
+			 '<Product: Asics x asphaldgold GEL-DS Trainer OG>'], ordered=False
+		)
 
-	def test_get_products_for_female_with_product_class(self):
-		obj = ProductType.objects.get(name='Footwear', sex='Female')
+	def test_get_product_when_categories_do_not_match(self):
+		'''
+		Try to get product when ProductType and Product categories do not match.
+		We should get empty QuerySet as the output.
+		'''
+		prod_type = ProductType.objects.get(name='Footwear', sex='Junior')
+		products = prod_type.product_class.filter(title='adidas ZX750')\
+					.filter(category__in=prod_type.category.all())
+		self.assertQuerysetEqual(products, 
+			[], ordered=False
+		)
