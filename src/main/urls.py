@@ -14,19 +14,18 @@ Including another URLconf
     2. Add a URL to urlpatterns:  path('blog/', include('blog.urls'))
 """
 from django.contrib import admin
-from django.urls import path
+from django.urls import path, include
 
 from django.views.generic import TemplateView
 
 from products.views import (
     ProductTypeNavListView, 
-    ProductSearchListView.
+    ProductSearchListView,
 )
 
 urlpatterns = [
     path('admin/', admin.site.urls),
     path('', TemplateView.as_view(template_name='home.html')),
-    # path('bootstrap/', TemplateView.as_view(template_name='bootstrap/bootstrap_example.html')),
-    path('bootstrap/', ProductTypeNavListView.as_view(), name='boot'),
-    path(r'^(P?<query>[-\w]+)/$', ProductSearchListView.as_view(), name='search')
+    path('', ProductTypeNavListView.as_view(template_name='base.html')),
+    path('search/', include("products.urls", namespace='search')),
 ]
