@@ -1,6 +1,6 @@
 <nav class="navbar navbar-expand-md navbar-dark bg-dark">
 	<div class="container">
-		<a class="navbar-brand" href="#">
+		<a class="navbar-brand" href="/">
 			<img src="http://www.getbootstrap.com/assets/brand/bootstrap-solid.svg" width="30" 
 				 height="30" class="d-inline-block align-top" alt="">
 			Project
@@ -54,8 +54,8 @@
 				</li>
 
 				<div class="navbar navbar-light bg-dark">
-					<form class="form-inline">
-						<input id="q" class="form-control form-control-sm mr-sm-2" type="search" placeholder="Search" aria-label="Search">
+					<form class="form-inline" method="GET" action="{% url 'search:search_list' %}">
+						<input name='q' value="{{ request.GET.q }}" class="form-control form-control-sm mr-sm-2" type="text" placeholder="Search" aria-label="Search">
 						<button class="btn btn-sm btn-outline-success my-sm-0" type="submit">Search</button>
 					</form>
 				</div>								
