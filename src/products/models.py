@@ -2,6 +2,9 @@ from django.db import models
 from django.core.exceptions import FieldDoesNotExist
 from django.http import QueryDict
 from django.db.models import Q
+from django.urls import reverse
+
+from .utils import unique_slug_generator, random_string_generator
 
 
 class ProductQuerySet(models.query.QuerySet):
@@ -12,7 +15,8 @@ class ProductQuerySet(models.query.QuerySet):
 				Q(price__icontains=query) |
 				Q(description__icontains=query) |
 				Q(category__name__icontains=query) |
-				Q(product_class__name__icontains=query)
+				Q(product_class__name__icontains=query) |
+				Q(product_class__sex__icontains=query)
 			).distinct()
 		else:
 			return self
@@ -24,6 +28,13 @@ class ProductManager(models.Manager):
 	def search(self, query):
 		return self.get_queryset().search(query)
 
+	def get_product_by_id(self, id):
+		query = self.get_queryset().filter(id=id)
+		if query.count() == 1:
+			return query
+		else:
+			return None
+
 class Product(models.Model):
 	title 			= models.CharField(max_length=120)
 	price 			= models.DecimalField(decimal_places=2, default=99.99, max_digits=12)
@@ -34,12 +45,15 @@ class Product(models.Model):
 										blank=False, null=True, on_delete=models.CASCADE)
 	timestamp 		= models.DateTimeField(auto_now_add=True)
 	updated 		= models.DateTimeField(auto_now=True)
-	slug 			= models.SlugField(blank=True) 
+	slug 			= models.SlugField(blank=True, null=True) 
 
 	objects = ProductManager()
 
 	def __str__(self):
 		return self.title
+
+	def get_absolute_url(self):
+		return reverse('products:detail', kwargs={'slug': self.slug})
 
 class Category(models.Model):
 	name 	 = models.CharField(max_length=120)
@@ -68,3 +82,9 @@ class ProductType(models.Model):
 			return ' -> '.join(cat_path)
 		else:
 			return cat_path[0]
+
+def product_pre_save(sender, instance, *args, **kwargs):
+	if not instance.slug:
+		instance.slug = unique_slug_generator(instance)
+
+models.signals.pre_save.connect(product_pre_save, sender=Product)

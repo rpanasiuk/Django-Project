@@ -19,13 +19,11 @@ from django.urls import path, include
 from django.views.generic import TemplateView
 
 from products.views import (
-    ProductTypeNavListView, 
     ProductSearchListView,
 )
 
 urlpatterns = [
     path('admin/', admin.site.urls),
     path('', TemplateView.as_view(template_name='home.html')),
-    path('', ProductTypeNavListView.as_view(template_name='base.html')),
-    path('search/', include("products.urls", namespace='search')),
+    path('p/', include("products.urls", namespace='products')),
 ]
