@@ -1,0 +1,31 @@
+	<li class="nav-item dropdown">
+		<a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button"
+		   data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+			Male
+		</a>
+		<div class="dropdown-menu" aria-labelledby="navbarDropdown">
+		{% if male_categories %}
+			{% for category in male_categories %}
+				<a class="dropdown-item" href="#">{{ category }}</a>
+			{% endfor %}
+		{% endif %}
+			<div class="dropdown-divider"></div>
+			<a class="dropdown-item" href="#">All</a>
+		</div>							
+	</li>
+
+	<li class="nav-item dropdown">
+		<a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button"
+		   data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+			Female
+		</a>
+		<div class="dropdown-menu" aria-labelledby="navbarDropdown">
+		{% if female_categories %}
+			{% for category in female_categories %}
+				<a class="dropdown-item" href="#">{{ category }}</a>
+			{% endfor %}
+		{% endif %}
+			<div class="dropdown-divider"></div>
+			<a class="dropdown-item" href="#">All</a>
+		</div>							
+	</li>
