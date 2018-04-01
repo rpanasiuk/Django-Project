@@ -6,11 +6,11 @@
 		<div class="dropdown-menu" aria-labelledby="navbarDropdown">
 		{% if male_categories %}
 			{% for category in male_categories %}
-				<a class="dropdown-item" href="#">{{ category }}</a>
+				<a class="dropdown-item" href="{% url 'products:p_class:category' prod_class=product_class sex=male category=category.name %}">{{ category }}</a>
 			{% endfor %}
 		{% endif %}
 			<div class="dropdown-divider"></div>
-			<a class="dropdown-item" href="#">All</a>
+			<a class="dropdown-item" href="{% url 'products:p_class:sex' prod_class=product_class sex=male %}">All</a>
 		</div>							
 	</li>
 
@@ -22,10 +22,10 @@
 		<div class="dropdown-menu" aria-labelledby="navbarDropdown">
 		{% if female_categories %}
 			{% for category in female_categories %}
-				<a class="dropdown-item" href="#">{{ category }}</a>
+				<a class="dropdown-item" href="{% url 'products:p_class:category' prod_class=product_class sex=female category=category.name %}">{{ category }}</a>
 			{% endfor %}
 		{% endif %}
 			<div class="dropdown-divider"></div>
-			<a class="dropdown-item" href="#">All</a>
+			<a class="dropdown-item" href="{% url 'products:p_class:sex' prod_class=product_class sex=female %}">All</a>
 		</div>							
 	</li>

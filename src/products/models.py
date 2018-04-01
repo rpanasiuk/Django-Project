@@ -1,6 +1,6 @@
 from django.db import models
 from django.core.exceptions import FieldDoesNotExist
-from django.http import QueryDict
+from django.http import Http404
 from django.db.models import Q
 from django.urls import reverse
 
@@ -28,9 +28,9 @@ class ProductManager(models.Manager):
 	def search(self, query):
 		return self.get_queryset().search(query)
 
-	def get_product_by_id(self, id):
-		query = self.get_queryset().filter(id=id)
-		if query.count() == 1:
+	def get_product_by_id(self, slug):
+		query = self.get_queryset().get(slug=slug)
+		if query:
 			return query
 		else:
 			return None
@@ -53,7 +53,7 @@ class Product(models.Model):
 		return self.title
 
 	def get_absolute_url(self):
-		return reverse('products:detail', kwargs={'slug': self.slug})
+		return reverse('detail', kwargs={'slug': self.slug})
 
 class Category(models.Model):
 	name 	 = models.CharField(max_length=120)

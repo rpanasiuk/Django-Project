@@ -8,8 +8,11 @@ def get_all_categories(request):
 		pass
 
 	dict_ = {
-		'male_categories': male_obj.category.all(),
-		'female_categories': female_obj.category.all(),
+		'product_class': male_obj.name,
+		'male': male_obj.sex,
+		'female': female_obj.sex,
+		'male_categories': male_obj.category.all(),		
+		'female_categories': female_obj.category.all(),		
 	}
 
 	return dict_
