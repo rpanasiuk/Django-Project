@@ -57,6 +57,7 @@ class Product(models.Model):
 
 class Category(models.Model):
 	name 	 = models.CharField(max_length=120)
+	slug 	 = models.SlugField(blank=True, null=True)
 	
 	class Meta:
 		verbose_name_plural = 'categories'
@@ -64,6 +65,13 @@ class Category(models.Model):
 
 	def __str__(self):
 		return self.name
+
+	@property
+	def title(self):
+		return self.name
+
+	def get_absolute_url(self):
+		return reverse('products:category', kwargs={'slug': self.slug})
 
 class ProductType(models.Model):
 	name 	    = models.CharField(max_length=120)
@@ -88,3 +96,4 @@ def product_pre_save(sender, instance, *args, **kwargs):
 		instance.slug = unique_slug_generator(instance)
 
 models.signals.pre_save.connect(product_pre_save, sender=Product)
+models.signals.pre_save.connect(product_pre_save, sender=Category)

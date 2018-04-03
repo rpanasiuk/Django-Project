@@ -8,14 +8,14 @@ from .models import ProductType, Product, Category
 
 class ProductSearchListView(ListView):
 	model = Product
-	template_name = 'products/search.html'
+	template_name = 'products/product-list.html'
 
 	def get_context_data(self, *args, **kwargs):
 		context = super(ProductSearchListView, self).get_context_data(*args, **kwargs)
 		qs = self.request.GET.get('q', None)
 		prod = Product.objects.search(qs)
 		if qs:
-			context['products_all'] = prod
+			context['products'] = prod
 
 		return context
 
