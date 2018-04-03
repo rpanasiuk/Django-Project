@@ -1,7 +1,8 @@
 from django.contrib import admin
 from django.urls import path, include
 
-from .views import ProductSearchListView, ProductDetailView, ProductListView
+from .views import ProductSearchListView, ProductDetailView, ProductListView, product_by_timestamp
+# from . import views
 
 app_name = 'products'
 
@@ -13,6 +14,7 @@ prod_class_patterns = ([
 
 urlpatterns = [
 	path('search/', ProductSearchListView.as_view(), name='search_list'),
+	path('new/', product_by_timestamp, name='new'),
 	path('<prod_class>/', include(prod_class_patterns)),
 ]
 

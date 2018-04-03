@@ -74,3 +74,8 @@ class ProductListView(ListView):
 		context['products'] = qs
 
 		return context
+
+def product_by_timestamp(request):
+	qs = Product.objects.get_product_by_timestamp()
+	context = {'products': qs}
+	return render(request, 'products/product-list.html', context)

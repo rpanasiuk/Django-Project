@@ -35,6 +35,10 @@ class ProductManager(models.Manager):
 		else:
 			return None
 
+	def get_product_by_timestamp(self):
+		query = self.get_queryset()
+		return query.order_by('-timestamp')
+
 class Product(models.Model):
 	title 			= models.CharField(max_length=120)
 	price 			= models.DecimalField(decimal_places=2, default=99.99, max_digits=12)
