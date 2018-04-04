@@ -117,6 +117,34 @@ class ProductModelTest(TestCase):
 			 '<Product: adidas ZX750>'], ordered=False
 		)
 
+class ProductManagerModelTest(TestCase):
+
+	def setUp(self):
+		model_setup()
+
+	def test_custom_function_search(self):
+		qs = Product.objects.search('air')
+		self.assertQuerysetEqual(qs, 
+			[# Result of product attributes
+			 '<Product: Air Jordan 11 Retro "Space Jam">', 
+			 '<Product: Nike Air Max 270>',
+			 '<Product: Nike Air Max 98>',
+			 # Result of category attributes
+			 '<Product: Reebok Classic Leather>',
+			 '<Product: Asics x asphaldgold GEL-DS Trainer OG>', 
+			 '<Product: adidas ZX750>',], ordered=False
+		)
+
+	def test_get_product_by_slug(self):
+		obj = Product.objects.get_product_by_slug('reebok-classic-leather')
+		exp = Product.objects.get(title='Reebok Classic Leather')
+		self.assertEquals(obj.id, exp.id)
+
+	def test_sort_product_by_timestamp(self):
+		reversed_prod_list = Product.objects.all()[::-1]
+		sorted_prod_list = Product.objects.sort_product_by_timestamp()[::1]
+		self.assertEquals(sorted_prod_list, reversed_prod_list)
+
 class CategoryModelTest(TestCase):
 
 	@classmethod
@@ -127,8 +155,6 @@ class CategoryModelTest(TestCase):
 	def test_name_getting(self):
 		category = Category.objects.first().name
 		self.assertEquals(category, 'Air Max')
-
-
 
 class ProductTypeModelTest(TestCase):
 

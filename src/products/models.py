@@ -28,14 +28,14 @@ class ProductManager(models.Manager):
 	def search(self, query):
 		return self.get_queryset().search(query)
 
-	def get_product_by_id(self, slug):
+	def get_product_by_slug(self, slug):
 		query = self.get_queryset().get(slug=slug)
 		if query:
 			return query
 		else:
 			return None
 
-	def get_product_by_timestamp(self):
+	def sort_product_by_timestamp(self):
 		query = self.get_queryset()
 		return query.order_by('-timestamp')
 

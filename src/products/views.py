@@ -25,7 +25,7 @@ class ProductDetailView(DetailView):
 
 	def get_object(self, *args, **kwargs):
 		slug = self.kwargs.get('slug')
-		obj = Product.objects.get_product_by_id(slug)
+		obj = Product.objects.get_product_by_slug(slug)
 		if obj:
 			return obj
 		else:
@@ -76,6 +76,6 @@ class ProductListView(ListView):
 		return context
 
 def product_by_timestamp(request):
-	qs = Product.objects.get_product_by_timestamp()
+	qs = Product.objects.sort_product_by_timestamp()
 	context = {'products': qs}
 	return render(request, 'products/product-list.html', context)
