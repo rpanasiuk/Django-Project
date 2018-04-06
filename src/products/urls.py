@@ -1,8 +1,12 @@
-from django.contrib import admin
 from django.urls import path, include
 
-from .views import ProductSearchListView, ProductDetailView, ProductListView, product_by_timestamp
-# from . import views
+from .views import (
+	ProductSearchListView, 
+	ProductDetailView, 
+	ProductListView, 
+	product_by_timestamp,
+)
+
 
 app_name = 'products'
 

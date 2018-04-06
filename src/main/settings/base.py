@@ -39,7 +39,8 @@ INSTALLED_APPS = [
     'django.contrib.staticfiles',
 
     'products',
-    'account',
+    'accounts',
+    'registration',
 ]
 
 MIDDLEWARE = [
@@ -125,3 +126,16 @@ USE_TZ = True
 # https://docs.djangoproject.com/en/2.0/howto/static-files/
 
 STATIC_URL = '/static/'
+
+# Register with redux
+# http://django-registration-redux.readthedocs.io/en/latest/views.html
+
+REGISTRATION_OPEN = True
+
+ACCOUNT_ACTIVATION_DAYS = 7
+
+REGISTRATION_AUTO_LOGIN = True
+
+LOGIN_REDIRECT_URL = '/'
+
+LOGIN_URL = '/account/login/'
